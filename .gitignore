@@ -1,0 +1,5 @@
+/Debug/
+.cproject
+.project
+*.xml
+.settings/org.eclipse.cdt.managedbuilder.core.prefs

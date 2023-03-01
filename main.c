@@ -2,25 +2,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cont = 0;
+int const MAX_ROUTES = 1000;
 
-void search(Node *init, Route **routes, int depth) {
+int cont = 0;
+Node** list;
+Route** routes;
+
+void search(Node *init, int depth) {
 	if (init->child != NULL) {
 		for (int i = 0; i < init->numRel; i++) {
 			Node *next = (Node*) init->child[i];
 			printf("Salto de %s a %s\n", init->name, next->name);
 			depth++;
-			search(next, routes, depth);
+			search(next, depth);
 			depth--;
 			printf("Vuelvo a %s\n", init->name);
-			//appendRelationship(routes[cont]->nodes, init, routes[cont]->steps);
 		}
 	} else {
-		printf("¡He llegado a G!\n");
-		routes[0]->steps = depth;
+		printf("He llegado a G!\n");
 		cont++;
-		printf("Iteracion: %i, profundidad: %i\n", cont, depth);
+		printf("Recorrido: %i, saltos: %i\n", cont, depth);
 	}
+//	printf("\n------------------------------------------------------\n");
+//	for (int i = 0; i<depth; i++) {
+//		printf("%s", list[i]->name);
+//	}
+//	printf("\n------------------------------------------------------\n");
+
 }
 
 int main() {
@@ -67,20 +75,25 @@ int main() {
 	initializeNode(&F, "F", nodeF, 2);
 	initializeNode(&G, "G", NULL, 0);
 
-	Route** routes = malloc(sizeof(Route*)+1);
-	Route R1;
-
-	R1.steps = 0;
-	R1.nodes = malloc(sizeof(Node*));
+	routes = malloc(sizeof(Route*)*MAX_ROUTES);
 
 	/*
 	 * LLAMADA A LA FUNCIÓN RECURSIVA DE BÚSQUEDA
 	 * SU FUNCIÓN SERÁ ENCONTRAR AQUEL NODO QUE NO TENGA TRANSICIONES A MÁS NODOS
 	 */
 
-	search(&A, routes, 0);
+	search(&A, 0);
 	printf("Despues de la busqueda, concluimos que hay %i recorridos distintos\n", cont);
+	printf("\n------------------------------------------------------\n");
 
+//	for (int i = 0; i<cont; i++) {
+//		Route* r = routes[i];
+//		for (int j = 0; i<r->steps; i++) {
+//			Node* node = r->nodes[j];
+//			printf("Nodo: %s\n", node->name);
+//		}
+//	}
+//
 	return 0;
 }
 
