@@ -5,8 +5,6 @@
 int const MAX_ROUTES = 1000;
 
 int cont = 0;
-Node** list;
-Route** routes;
 
 void search(Node *init, int depth) {
 	if (init->child != NULL) {
@@ -23,11 +21,6 @@ void search(Node *init, int depth) {
 		cont++;
 		printf("Recorrido: %i, saltos: %i\n", cont, depth);
 	}
-//	printf("\n------------------------------------------------------\n");
-//	for (int i = 0; i<depth; i++) {
-//		printf("%s", list[i]->name);
-//	}
-//	printf("\n------------------------------------------------------\n");
 
 }
 
@@ -75,8 +68,6 @@ int main() {
 	initializeNode(&F, "F", nodeF, 2);
 	initializeNode(&G, "G", NULL, 0);
 
-	routes = malloc(sizeof(Route*)*MAX_ROUTES);
-
 	/*
 	 * LLAMADA A LA FUNCIÓN RECURSIVA DE BÚSQUEDA
 	 * SU FUNCIÓN SERÁ ENCONTRAR AQUEL NODO QUE NO TENGA TRANSICIONES A MÁS NODOS
@@ -86,14 +77,6 @@ int main() {
 	printf("Despues de la busqueda, concluimos que hay %i recorridos distintos\n", cont);
 	printf("\n------------------------------------------------------\n");
 
-//	for (int i = 0; i<cont; i++) {
-//		Route* r = routes[i];
-//		for (int j = 0; i<r->steps; i++) {
-//			Node* node = r->nodes[j];
-//			printf("Nodo: %s\n", node->name);
-//		}
-//	}
-//
 	return 0;
 }
 
